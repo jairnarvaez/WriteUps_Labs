@@ -1,0 +1,62 @@
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2 class="sidebar-title">🛸 Cyber Missions</h2>
+        <p class="sidebar-subtitle">Explora los desafíos conquistados</p>
+    </div>
+    
+    <nav id="machine-list" class="machine-list">
+        <!-- Aquí se insertan las máquinas dinámicamente -->
+    </nav>
+</aside>
+
+<button class="sidebar-toggle"> ></button>
+<script>
+async function loadMachines() {
+    try {
+        const response = await fetch("/api/machines-basic/");  // Ajusta si tu endpoint tiene otro path
+        const machines = await response.json();
+
+        const list = document.getElementById("machine-list");
+        list.innerHTML = "";
+
+        machines.forEach(machine => {
+            const button = document.createElement("button");
+            button.classList.add("machine-item");
+
+            // Al hacer click redirige al detalle
+            button.onclick = () => {
+                window.location.href = `{{ BASE_URL }}/machines/${machine.slug}`;
+            };
+
+            button.innerHTML = `
+                <div class="machine-header">
+                    <div>
+                        <div class="machine-name">${machine.name}</div>
+                        <div class="machine-platform">${machine.platform}</div>
+                    </div>
+                    <div class="machine-icon">${machine.emoji}</div>
+                </div>
+                <div class="machine-difficulty difficulty-${machine.difficulty.toLowerCase()}">
+                    ${translateDifficulty(machine.difficulty)}
+                </div>
+            `;
+
+            list.appendChild(button);
+        });
+    } catch (error) {
+        console.error("Error cargando máquinas:", error);
+    }
+}
+
+function translateDifficulty(difficulty) {
+    switch (difficulty) {
+        case "Easy": return "Fácil";
+        case "Medium": return "Medio";
+        case "Hard": return "Difícil";
+        default: return difficulty;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadMachines);
+</script>

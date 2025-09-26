@@ -1,0 +1,205 @@
+/* Machine Page */
+.machine-page {
+    background: 
+        linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+    border: 2px solid var(--primary-700);
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.machine-page-header {
+    background: 
+        linear-gradient(135deg, var(--primary-800) 0%, var(--primary-900) 100%);
+    padding: 2rem;
+    border-bottom: 2px solid var(--primary-600);
+    position: relative;
+    overflow: hidden;
+}
+
+.machine-page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, var(--primary-600) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, var(--primary-700) 0%, transparent 50%);
+    opacity: 0.3;
+}
+
+.machine-page-title-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.machine-page-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--primary-200);
+    text-shadow: 0 0 20px var(--primary-400);
+}
+
+.machine-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 2px solid;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-platform {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border-color: #3b82f6;
+}
+
+.machine-description {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+}
+
+.machine-image-section {
+    padding: 2rem;
+    border-bottom: 2px solid var(--primary-700);
+    text-align: center;
+}
+
+.machine-image {
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    
+    /*border: 3px solid var(--primary-600);
+    box-shadow: 
+        0 10px 30px rgba(0, 115, 230, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);*/
+    transition: all 0.4s ease;
+}
+
+.machine-image:hover {
+    border-color: var(--primary-400);
+    box-shadow: 
+        0 15px 40px rgba(0, 115, 230, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
+}
+
+.notes-section {
+    padding: 2rem;
+}
+
+.notes-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-300);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-shadow: 0 0 2px var(--primary-500);
+}
+
+.step {
+    background: rgba(0, 0, 0, 0.3);
+    border-left: 1px solid var(--primary-500);
+    border-radius: 0 15px 15px 0;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.step::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-300), var(--primary-600));
+    box-shadow: 0 0 10px var(--primary-400);
+}
+
+.step-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-300);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 2px var(--primary-500);
+}
+
+.step-content {
+    color: #e2e8f0;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.code-block {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border: 2px solid var(--primary-700);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    position: relative;
+}
+
+.code-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, var(--primary-800) 0%, transparent 10%, transparent 90%, var(--primary-800) 100%);
+    opacity: 0.1;
+}
+
+.code-block pre {
+    color: var(--primary-300);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.success-box {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.1) 100%);
+    border: 2px solid #22c55e;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.success-text {
+    color: #4ade80;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

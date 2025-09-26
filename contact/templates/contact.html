@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-content">
+    <div class="machine-page">
+        <div class="machine-page-header">
+            <div class="machine-page-title-section">
+                <h1 class="machine-page-title">{{ page.emoji }} {{ page.titulo }}</h1>
+                <div class="machine-badges">
+                    <span class="badge badge-platform">Contacto Digital</span>
+                </div>
+            </div>
+            <p class="machine-description">
+                {{ page.descripcion }}
+            </p>
+        </div>
+
+        <div class="notes-section">
+            <!-- About Me Section -->
+            <div class="contact-info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div class="contact-card" style="background: linear-gradient(135deg, rgba(0, 115, 230, 0.1) 0%, rgba(0, 115, 230, 0.05) 100%); border: 1px solid var(--primary-400); border-radius: 15px; padding: 2rem;">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;"> {{ page.personal_info.emoji }} </div>
+                        <h3 style="color: var(--primary-300); margin: 0;"> {{ page.personal_info.nombre }} </h3>
+                        <p style="color: var(--text-muted); margin: 0.5rem 0 0;"> {{ page.personal_info.profesion }} </p>
+                    </div>
+
+                    <div style="space-y: 1rem;">
+					    {% for listado in page.personal_info.listados.all %}
+                        <div style="margin-bottom: 1rem;">
+                            <strong style="color: var(--primary-300);">{{ listado.emoji }} {{ listado.tipo }}</strong>
+                            <p style="margin: 0.5rem 0; color: var(--text-secondary);"> 
+                            {% for item in listado.items.all %}            
+                            {{ item.nombre }} • 
+                            {% endfor %}
+                            </p>
+                        </div>
+					    {% endfor %}
+                    </div>                       
+                </div>
+
+                <div class="contact-card" style="background: linear-gradient(135deg, rgba(126, 34, 206, 0.1) 0%, rgba(126, 34, 206, 0.05) 100%); border: 1px solid rgba(126, 34, 206, 1); border-radius: 15px; padding: 2rem;">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #7E22CE, #6B1BB5); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem;">{{ page.objetivo.emoji }}</div>
+                        <h3 style="color: #7E22CE; margin: 0;">{{ page.objetivo.titulo }}</h3>
+                    </div>
+
+                    <div class="objective-list" style="space-y: 1rem;">
+    					{% for sub in page.objetivo.subsecciones.all %}
+                        <div style="display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem;">
+                            <span style="color: #dc267f; font-size: 1.2rem;">{{ sub.emoji }}</span>
+                            <div>
+                                <strong style="color: var(--text-primary);">{{ sub.titulo }}</strong>
+                                <p style="margin: 0.25rem 0 0; color: var(--text-muted); font-size: 0.9rem;">{{ sub.descripcion }}</p>
+                            </div>
+                        </div>
+    				    {% endfor %}
+                    </div>                    
+                </div>
+            </div>
+
+
+
+
+            <!-- Contact Form Section -->
+            <div class="contact-form-section" style="gap: 2rem; margin-bottom: 2rem;">
+                <div class="md:w-2/3 contact-form-container" style="border: 1px solid var(--primary-400); border-radius: 15px; padding: 2rem; margin: 0 auto;">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h3 style="color: var(--primary-300); margin: 0 0 0.5rem;">📨 Enviar Mensaje</h3>
+                        <p style="color: var(--text-muted); margin: 0; font-size: 0.9rem;">Comparte tu consulta o propuesta de colaboración</p>
+                    </div>
+                    
+                    <form method="post" action="{% url 'contact' %}" id="contactForm" style="display: grid; gap: 1.5rem;">
+                  	    {% csrf_token %}
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <label for="name" style="display: block; color: var(--primary-300); margin-bottom: 0.5rem; font-weight: bold;">Nombre</label>
+                                <input type="text" id="name" name="name" required 
+                                       placeholder="Tu nombre..."
+                                       style="width: 100%; padding: 0.875rem; background: var(--bg-secondary); border: 1px solid var(--primary-400); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem;">
+                            </div>
+                            <div>
+                                <label for="email" style="display: block; color: var(--primary-300); margin-bottom: 0.5rem; font-weight: bold;">Email</label>
+                                <input type="email" id="email" name="email" required 
+                                       placeholder="tu@email.com"
+                                       style="width: 100%; padding: 0.875rem; background: var(--bg-secondary); border: 1px solid var(--primary-400); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem;">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" style="display: block; color: var(--primary-300); margin-bottom: 0.5rem; font-weight: bold;">Asunto</label>
+                               <input type="subject" id="subject" name="subject" required 
+                                      placeholder="Asunto"
+                                      style="width: 100%; padding: 0.875rem; background: var(--bg-secondary); border: 1px solid var(--primary-400); border-radius: 8px; color: var(--text-primary); font-size: 0.95rem;">
+                        </div>
+                        
+                        
+                        <div>
+                            <label for="message" style="display: block; color: var(--primary-300); margin-bottom: 0.5rem; font-weight: bold;">Mensaje</label>
+                            <textarea id="message" name="message" rows="6" required 
+                                      placeholder="Describe tu consulta, proyecto o propuesta..."
+                                      style="width: 100%; padding: 0.875rem; background: var(--bg-secondary); border: 1px solid var(--primary-400); border-radius: 8px; color: var(--text-primary); resize: vertical; font-size: 0.95rem;"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                style="padding: 1rem 2rem; background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 115, 230, 0.3);">
+                            🚀 Enviar Transmisión
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <!-- Projects Section -->
+            <div class="projects-section">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary-300); font-size: 1.8rem; margin: 0 0 0.5rem;">🛠️ Proyectos de Investigación Activos</h3>
+                    <p style="color: var(--text-muted); margin: 0;">Herramientas y frameworks desarrollados para la comunidad</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+ 				    {% for proyecto in page.proyectos.all %}
+                    <div class="project-card" style="background: {{ proyecto.color_background }}; border: 1px solid {{ proyecto.color_border}}; border-radius: 15px; padding: 2rem; position: relative; overflow: hidden;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="width: 50px; height: 50px; background: {{ proyecto.color_emoji }}; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;"> {{ proyecto.emoji }} </div>
+                            <div>
+                                <h4 style="color: {{ proyecto.color_title}}; margin: 0; font-size: 1.2rem;"> {{ proyecto.titulo }} </h4>
+                                <p style="color: var(--text-muted); margin: 0; font-size: 0.85rem;"> {{ proyecto.subtitulo }} </p>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">
+                           	{{ proyecto.descripcion }}
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+	                        {% for tec in proyecto.tecnologias.all %}
+                            	<span style="background: {{ proyecto.color_technology_background }}; color: {{ proyecto.color_technology }}; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.8rem; font-weight: bold;"> {{ tec.nombre }} </span>
+	                        {% endfor %}
+
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: #6ab04c; font-weight: bold; font-size: 0.9rem;"> {{ proyecto.estado }}</span>
+                            <span style="color: var(--text-muted); font-size: 0.8rem;"> {{ proyecto.version }}</span>
+                        </div>
+                    </div>
+   				    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+// Contact form functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+                        
+            // Simulate server response delay
+            setTimeout(() => {
+                alert('✅ ¡Transmisión enviada exitosamente!\n\n📡 Tu mensaje ha sido recibido en la estación espacial.\n⏰ Responderé en un plazo de 24-48 horas.\n🚀 ¡Gracias por contactar WriteUps Labs!');
+                contactForm.reset();
+                button.textContent = originalText;
+                button.disabled = false;
+                button.style.opacity = '1';
+            }, 2500);
+        });
+    }
+    
+    // Add hover effects to social links
+    const socialLinks = document.querySelectorAll('a[href*="twitter"], a[href*="linkedin"], a[href*="github"], a[href*="hackthebox"]');
+    socialLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+            this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.2)';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
+    });
+    
+    // Add hover effects to project cards
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+        });
+    });
+});
+</script>
+
+{% endblock %}

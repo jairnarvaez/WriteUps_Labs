@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load markdownify %}
+
+{% block content %}
+{% if error %}
+  <p style="color:red;">{{ error }}</p>
+{% else %}
+<div class="page-content">
+    <div class="machine-page">
+    <div class="machine-page-header">
+        <div class="machine-page-title-section">
+            <h1 class="machine-page-title"> {{ machine.emoji }} {{ machine.name }} </h1>
+            <div class="machine-badges">
+                <span class="badge difficulty-{{ machine.difficulty|lower }}">{{ machine.difficulty }}</span>
+                <span class="badge badge-platform">{{ machine.platform }}</span>
+            </div>
+        </div>
+        <p class="machine-description">
+            {{ machine.summary }}
+        </p>
+    </div>
+
+    <div class="machine-image-section">
+        <img src={{ machine.cover_image }} 
+             alt="Lame Space Station" 
+             class="machine-image">
+    </div>
+
+    {% for section in machine.sections %}
+	    <div class="p-2 sm:p-8 notes-section">
+		    <h2 class="notes-title">
+		        {{ section.title }}
+		    </h2>
+
+	        {% for step in section.steps %}
+                <div class="step">
+	                <h3 class="step-title"> {{ step.title }}</h3>
+				        {% for block in step.blocks %}
+				          {% if block.type == "description" %}
+				            <p class="step-content">{{ block.text }}</p>
+				          {% elif block.type == "code" %}
+				            <div class="code-block">
+				            	<pre><code>{{ block.code }}</code></pre>
+				            </div>
+				          {% elif block.type == "image" %}
+				            <figure>
+				              <img src="{{ block.image }}" alt="{{ block.caption }}" style="max-width:500px;">
+				              {% if block.caption %}
+				                <figcaption>{{ block.caption }}</figcaption>
+				              {% endif %}
+				            </figure>
+				   
+				   		  {% elif block.type == "markdown" %}
+				   		    <div class="step-content">
+				   		      {{ block.text|markdownify }}
+				   		    </div>
+				   		  {% endif %}  
+				        {% endfor %}
+	        	</div>
+		    {% endfor %}
+
+		</div>
+    {% endfor %}
+
+	
+    <!-- Tags -->
+    <p><strong>Tags:</strong>
+      {% for tag in machine.tags %}
+        <span style="background:#eee; padding:3px 6px; margin-right:5px; border-radius:5px;">
+          {{ tag.name }}
+        </span>
+      {% endfor %}
+    </p>
+
+
+    </div>
+</div>
+{% endif %}
+{% endblock %}

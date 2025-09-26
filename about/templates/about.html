@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-content">
+    <div class="machine-page">
+        <div class="machine-page-header">
+            <h1 class="machine-page-title"> {{ about_page.emoji }} {{ about_page.titulo }}</h1>
+            <div style="margin-top: 1.5rem;">
+                <p class="machine-description">
+                    {{ about_page.descripcion }}
+                </p>
+            </div>
+        </div>
+        
+        <div class="p-4 md:p-8 notes-section">
+
+            <!-- Card principal -->
+            {% for card in cards_principal %}
+              <div class="step">
+                <h3 class="step-title">{{ card.emoji }} {{ card.titulo }}</h3>
+                <p class="step-content">{{ card.descripcion }}</p>
+              </div>
+            {% endfor %}
+
+			<div class="features-grid">
+			  {% for card in cards_tres %}
+			    <div class="feature-card">
+                    <span class="feature-icon">{{ card.emoji }} </span>
+                    <h3 class="feature-title">{{ card.titulo }}</h3>
+			        <p class="feature-description">{{ card.descripcion }}</p>
+			    </div>
+			  {% endfor %}
+			</div>
+
+			{% for card in cards_dos %}
+			  <div class="step">
+			    <h3 class="step-title">{{ card.emoji }} {{ card.titulo }}</h3>
+			    <p class="step-content">{{ card.descripcion }}</p>
+			  </div>
+			{% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

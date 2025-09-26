@@ -1,0 +1,135 @@
+/* Header */
+.header {
+/*    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;*/
+    background: rgba(10, 10, 26, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 0px 0px 25px 25px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--primary-50);
+    text-shadow: 
+        0 0 1px var(--primary-500),
+        0 0 2px var(--primary-600),
+        0 0 4px var(--primary-700);
+   /* display: flex;
+    align-items: center;
+    gap: 0.5rem;*/
+}
+
+.logo::before {
+    content: '🚀';
+    text-shadow: none; 
+    animation: rocket-pulse 2s ease-in-out infinite;
+}
+
+@keyframes rocket-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 600;
+   padding: 0.7rem 1.5rem;
+    /*border: transparent;*/
+    border-radius: 25px;
+    transition: all 0.3s ease;
+   /* position: relative;
+    overflow: hidden;*/
+}
+
+.nav-menu a::before {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    transition: left 0.5s;
+}
+
+.nav-menu a:hover::before {
+    left: 100%;
+}
+
+.nav-menu a:hover {
+    color: var(--primary-300);
+    border-color: var(--primary-500);
+    box-shadow: 0 0 20px rgba(var(--primary-shadow), 0.4);
+}
+
+/* Theme Selector */
+.theme-selector {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-left: 2rem;
+}
+
+.theme-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.theme-btn::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent, currentColor, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.theme-btn:hover::before {
+    opacity: 1;
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.theme-btn:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px currentColor;
+}
+/*
+.theme-blue { background: #0073e6; color: #0073e6; }
+.theme-red { background: #e60000; color: #e60000; }
+.theme-green { background: #00e600; color: #00e600; }
+*/
+
+.theme-blue { background-color: #2563eb;color: #2563eb; }
+.theme-red { background-color: #dc2626; color: #dc2626;}
+.theme-green { background-color: #16a34a; color: #16a34a;}

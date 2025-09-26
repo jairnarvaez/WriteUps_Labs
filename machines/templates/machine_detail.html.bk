@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load markdownify %}
+
+{% block content %}
+{% if error %}
+  <p style="color:red;">{{ error }}</p>
+{% else %}
+  <div>
+    <h1>{{ machine.name }}</h1>
+    <img src="{{ machine.cover_image }}" alt="Portada de {{ machine.name }}" style="max-width:400px;">
+    <p><strong>Plataforma:</strong> {{ machine.platform }}</p>
+    <p><strong>Dificultad:</strong> {{ machine.difficulty }}</p>
+    <p>{{ machine.summary }}</p>
+
+    <!-- Tags -->
+    <p><strong>Tags:</strong>
+      {% for tag in machine.tags %}
+        <span style="background:#eee; padding:3px 6px; margin-right:5px; border-radius:5px;">
+          {{ tag.name }}
+        </span>
+      {% endfor %}
+    </p>
+
+    <!-- Sections -->
+    {% for section in machine.sections %}
+      <h2>{{ section.title }}</h2>
+
+      {% for step in section.steps %}
+        <h3>{{ step.order }}. {{ step.title }}</h3>
+
+        {% for block in step.blocks %}
+          {% if block.type == "description" %}
+            <p>{{ block.text }}</p>
+          {% elif block.type == "code" %}
+            <pre><code>{{ block.code }}</code></pre>
+          {% elif block.type == "image" %}
+            <figure>
+              <img src="{{ block.image }}" alt="{{ block.caption }}" style="max-width:500px;">
+              {% if block.caption %}
+                <figcaption>{{ block.caption }}</figcaption>
+              {% endif %}
+            </figure>
+   
+   		  {% elif block.type == "markdown" %}
+   		    <div>
+   		      {{ block.text|markdownify }}
+   		    </div>
+   		  {% endif %}
+
+          
+        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

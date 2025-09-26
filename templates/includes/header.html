@@ -1,0 +1,60 @@
+<header class="fixed top-0 left-0 right-0 z-50 bg-[rgba(10,10,26,0.95)] backdrop-blur-[20px] rounded-b-[25px]">
+  <div class="flex justify-between items-center px-4 sm:px-8 py-4 max-w-[1400px] mx-auto">
+    
+    <!-- Logo -->
+   <div class="flex items-center gap-2 text-2xl font-extrabold text-primary-400 font-orbitron">
+	 <div class="flex logo">
+        Jair-WriteUps
+	 </div>
+    </div>
+    <!-- Desktop Menu -->
+    <nav class="nav-menu hidden lg:flex items-center gap-8">
+      <ul class="flex items-center gap-8">
+        <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+        <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+        <li><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Theme Selector -->
+      <div class="flex items-center gap-2 ml-8">
+        <button class="theme-btn theme-blue" onclick="setTheme('blue')" title="Blue Space"></button>
+        <button class="theme-btn theme-red" onclick="setTheme('red')" title="Red Nebula"></button>
+        <button class="theme-btn theme-green" onclick="setTheme('green')" title="Green Galaxy"></button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Button + Theme -->
+    <div class="flex items-center gap-4 lg:hidden">
+      <!-- Theme Selector -->
+      <div class="flex items-center gap-2">
+        <button class="w-[22px] h-[22px] theme-btn theme-blue" onclick="setTheme('blue')" title="Blue Space"></button>
+        <button class="w-[22px] h-[22px] theme-btn theme-red" onclick="setTheme('red')" title="Red Nebula"></button>
+        <button class="w-[22px] h-[22px] theme-btn theme-green" onclick="setTheme('green')" title="Green Galaxy"></button>
+      </div>
+
+      <!-- Hamburger Button -->
+      <button id="mobile-menu-btn" class="text-white focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-[rgba(10,10,26,0.95)] backdrop-blur-[20px] border-t border-white/20">
+    <ul class="flex flex-col p-4 gap-4">
+      <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+      <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+      <li><a href="{% url 'contact' %}" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+  });
+</script>

