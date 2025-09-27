@@ -13,11 +13,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 
-#BASE_URL = "jairnarv12.pythonanywhere.com"
-#API_BASE_URL = "jairnarv12.pythonanywhere.com/api"
-
-BASE_URL = "http://192.168.87.164:8000"
-API_BASE_URL = "http://192.168.87.164:8000/api"
+# Para desplegarlo en pythonanywhere
+BASE_URL = ""
+API_BASE_URL = "https://jairnarv12.pythonanywhere.com/api"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
