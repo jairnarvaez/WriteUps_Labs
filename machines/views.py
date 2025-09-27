@@ -33,24 +33,8 @@ class TagViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = TagSerializer
 
 def machine_detail(request, machine_id):
-    api_url = f"{settings.API_BASE_URL}/machines/{machine_id}/"
-    machine = None
-    error = None
-
-    try:
-        response = requests.get(api_url, timeout=5)  
-        if response.status_code == 200:
-            machine = response.json()
-        else:
-            error = f"Error {response.status_code}: no se pudo cargar la máquina."
-    except RequestException as e:
-        error = f"No se pudo conectar a la API: {e}"
-
-    context = {
-        "machine": machine,
-        "error": error,
-    }
-    return render(request, "machine_detail.html", context)
+    machine = get_object_or_404(Machine, slug=machine_id)
+    return render(request, "machine_detail.html", {"machine": machine})
 
 """
 class SectionViewSet(viewsets.ModelViewSet):
