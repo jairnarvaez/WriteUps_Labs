@@ -2,7 +2,7 @@
 
 Una aplicación web desarrollada en **Django**, que integra funcionalidades dinámicas con una API interna y una interfaz moderna. El objetivo de la página es documentar mi proceso de aprendizaje en el mundo de la ciberseguridad.
 
-<https://github.com/prasanthrangan/hyprdots/assets/106020512/7f8fadc8-e293-4482-a851-e9c6464f5265>
+<https://github.com/user-attachments/assets/e9e49630-3cfb-49a2-bf0d-ec364d1fb12b>
 
 
 ---
