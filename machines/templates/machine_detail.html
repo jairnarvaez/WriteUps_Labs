@@ -26,16 +26,16 @@
              class="machine-image">
     </div>
 
-    {% for section in machine.sections %}
+    {% for section in machine.sections.all %}
 	    <div class="p-2 sm:p-8 notes-section">
 		    <h2 class="notes-title">
 		        {{ section.title }}
 		    </h2>
 
-	        {% for step in section.steps %}
+	        {% for step in section.steps.all %}
                 <div class="step">
 	                <h3 class="step-title"> {{ step.title }}</h3>
-				        {% for block in step.blocks %}
+				        {% for block in step.blocks.all %}
 				          {% if block.type == "description" %}
 				            <p class="step-content">{{ block.text }}</p>
 				          {% elif block.type == "code" %}
