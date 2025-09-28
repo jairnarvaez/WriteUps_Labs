@@ -20,11 +20,12 @@
         </p>
     </div>
 
-    <div class="machine-image-section">
-        <img src={{ machine.cover_image.url }} 
-             alt="Lame Space Station" 
-             class="machine-image">
-    </div>
+
+	    <div class="machine-image-section" style="display: flex; flex-direction: column; align-items: center; text-align: center; width:100%">
+	        <img src={{ machine.cover_image.url }} 
+	             alt="Lame Space Station" 
+	             class="machine-image">
+	    </div>
 
     {% for section in machine.sections.all %}
 	    <div class="p-2 sm:p-8 notes-section">
@@ -43,8 +44,8 @@
 				            	<pre><code>{{ block.code }}</code></pre>
 				            </div>
 				          {% elif block.type == "image" %}
-				            <figure>
-				              <img src="{{ block.image }}" alt="{{ block.caption }}" style="max-width:500px;">
+				            <figure style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+				              <img src="{{ block.image.url }}" alt="{{ block.caption }}" style="max-width:700px; border: 2px solid transparent;">
 				              {% if block.caption %}
 				                <figcaption>{{ block.caption }}</figcaption>
 				              {% endif %}
@@ -61,17 +62,6 @@
 
 		</div>
     {% endfor %}
-
-	
-    <!-- Tags -->
-    <p><strong>Tags:</strong>
-      {% for tag in machine.tags %}
-        <span style="background:#eee; padding:3px 6px; margin-right:5px; border-radius:5px;">
-          {{ tag.name }}
-        </span>
-      {% endfor %}
-    </p>
-
 
     </div>
 </div>

@@ -14,8 +14,10 @@ from pathlib import Path
 import os
 
 # Para desplegarlo en pythonanywhere
-BASE_URL = ""
-API_BASE_URL = "https://jairnarv12.pythonanywhere.com/api"
+BASE_URL = "http://127.0.0.1:8000"
+#BASE_URL = ""
+API_BASE_URL = "http://127.0.0.1:8000/api"
+#API_BASE_URL = "https://jairnarv12.pythonanywhere.com/api"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,10 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1@746q@=7)lo18j^5nkh(n35#2j#g54@3dhtr@d9^c#za!c46_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-#ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['jairnarv12.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['jairnarv12.pythonanywhere.com']
 
 # Application definition
 

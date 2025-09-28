@@ -8,6 +8,7 @@ from django.shortcuts import render
 from .models import Machine
 from django.conf import settings
 import requests
+from django.shortcuts import get_object_or_404
 
 class MachineViewSet(viewsets.ModelViewSet):
     queryset = Machine.objects.all()
